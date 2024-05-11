@@ -151,3 +151,5 @@ Supplier Table
 | 3             | Uni-ball            | Writing Utensils |
 | 3             | Hammer Mill         | Paper            |
 | 3             | Samford Labels      | Custom Forms     |
+
+### Example 2
