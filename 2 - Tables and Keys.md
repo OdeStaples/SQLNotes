@@ -120,7 +120,7 @@ Branch Table
 
 - A composite key in SQL is a combination of two or more columns that uniquely identify each row in a table. A single column can't identify a row uniquely, but a combination of columns can.
 
-- For eg, in the below branch supplier table, the `branch_id` and `supplier name` are composite keys and the combination of such keys only exist once - Hammer Mill supplies to Branch Id 2: this combination only occurs once.
+- For eg, in the below branch supplier table, the `branch_id` and `supplier name` are composite keys and the combination of such keys only exist once - Hammer Mill supplies to Branch Id 2: this combination only occurs once. `branch_id` is also foreign keys in this case. `branch_id` is a primary key in `branch` table.
 
   Employee Table
 
@@ -153,3 +153,50 @@ Supplier Table
 | 3             | Samford Labels      | Custom Forms     |
 
 ### Example 2
+
+- In the below example, the employee table has a primary key `emp_id` along with two foreign keys `branch_id` and `super_id`. `branch_id` is a primary key in `branch` table and `super_id` is a primary key in the `employee_id` itself.
+
+- In the `branch` table, the `branch_id` is a primary key and `mgr_id` is a foreign key which is a primary key (`emp_id`) in `employee` table
+
+- In the `client` table, `client_id` is a primary and `branch_id` is a foreign key which is a primary key (`branch_id`) in `branch` table
+
+- In the `works_with` table, `emp id` and `client_name` are composite keys that shows which employee has made how much sales to a client, hence both the rows are composite keys. Also, both `emp id` and `client_name` are foreign keys (`emp id` is a primary key in `employee` table and`client_name` is a primary key in `client` table)
+
+Employee Table
+
+| \*emp_id | name   | birth_date | sex | salary | branch_id\* | super_id\* |
+| -------- | ------ | ---------- | --- | ------ | ----------- | ---------- |
+| 100      | Jack   | 1-1-1995   | M   | 100    | 1           | NULL       |
+| 101      | Kate   | 2-2-1995   | F   | 200    | 2           | 100        |
+| 102      | Claire | 3-3-1995   | F   | 300    | 3           | 100        |
+| 103      | John   | 4-4-1995   | M   | 400    | 2           | 101        |
+| 104      | Mike   | 5-5-1995   | M   | 500    | 3           | 101        |
+
+Branch Table
+
+| \*branch id | branch_name | mgr_id\* |
+| ----------- | ----------- | -------- |
+| 1           | Corporate   | 101      |
+| 2           | Scranton    | 102      |
+| 3           | Stanford    | 103      |
+
+Client
+
+| \*client id | client_name         | branch_id\* |
+| ----------- | ------------------- | ----------- |
+| 400         | Dunmore Highschool  | 2           |
+| 401         | Lackawana County    | 2           |
+| 402         | FedEx               | 3           |
+| 403         | John Daly Law, LLC  | 3           |
+| 404         | Scranton Whitepages | 2           |
+
+Works_With
+
+| \*\*emp id | \*\*client_name | total_sales |
+| ---------- | --------------- | ----------- |
+| 107        | 400             | 55000       |
+| 101        | 401             | 267000      |
+| 105        | 402             | 22500       |
+| 104        | 403             | 5000        |
+| 105        | 403             | 12000       |
+| 107        | 404             | 33000       |
